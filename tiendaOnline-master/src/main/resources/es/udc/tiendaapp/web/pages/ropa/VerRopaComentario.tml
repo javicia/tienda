@@ -1,0 +1,72 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"
+	t:type="Layout" t:pageTitle="title" 
+	t:menuExplanation="menuExplanation">
+  
+      <body>
+        
+  <h1>Ver Ropa SOLO PARA USUARIOS IDENTIFICADOS</h1>
+Seleccionaste la ropa ${ropa.idRopa} con nome ${ropa.nombre} y marca ${ropa.marca}:
+        <t:beandisplay object="ropa"/>
+
+        
+<t:grid source="listastockTalla" row="stockTalla">
+            
+        </t:grid>
+        
+    
+    <form t:type="Form" t:id="anadirStockForm">
+
+           <h2> QUIERES AÑADIR STOCK</h2> 
+           
+              <div class="field">        
+	        <t:label for="talla"/>
+	        <span class="entry">    
+	            <input t:id="talla" t:type="TextField"
+				       t:validate="required" 
+				       size="16" maxlength="30" />
+	        </span>
+	   </div>
+           	<div class="field">        
+	        <t:label for="stock"/>
+	        <span class="entry">    
+	            <input t:id="stock" t:type="TextField"
+				       t:validate="required" 
+				       size="16" maxlength="30" />
+	        </span>
+                </div>
+            <div class="button">
+	        <input type="submit" value="Enviar"/>        
+	    </div>
+	    
+	</form>
+        
+    
+     <t:grid source="listacomentarios" row="comentario" add="ropa">
+       <p:ropaCell>
+      <t:pagelink page="Ropa/VerRopaComentario" context="comentario.ropa.idRopa">${ropa.nombre}</t:pagelink>
+       </p:ropaCell>         
+     </t:grid>
+        
+        <h2> Quieres añadir algun comentario?? </h2>
+             	
+        
+        
+        <form t:type="Form" t:id="comentarioForm">
+   
+   <div class="field">        
+	        <t:label for="coment"/>
+	        <span class="entry">    
+	            <input t:id="coment" t:type="textArea"
+				       t:validate="required" 
+				       size="14" maxlength="244"
+                                        rows="7" cols="25"/>
+	        </span>
+	   </div>
+        
+            <div class="button">
+	        <input type="submit" value="Enviar"/>        
+	    </div>
+          
+          </form>
+            </body>
+</html>

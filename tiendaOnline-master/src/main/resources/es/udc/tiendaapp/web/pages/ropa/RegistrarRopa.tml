@@ -1,0 +1,125 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	t:type="Layout" t:pageTitle="title" 
+	t:menuExplanation="menuExplanation">
+
+ 
+<form t:type="Form" t:id="registrarRopaForm">
+	   <t:errors/>
+           
+	   <div class="field">        
+	        <t:label for="nombre"/>
+	        <span class="entry">    
+	            <input t:id="nombre" t:type="TextField"
+				       t:validate="required" 
+				       size="16" maxlength="30" />
+	        </span>
+	   </div>
+
+	    
+	   <div class="field">        
+	        <t:label for="precio"/>
+	        <span class="entry">    
+	            <input t:id="precio" t:type="TextField"
+				       t:validate="required" 
+				       size="16" maxlength="30" />
+	        </span>
+	   </div>
+           <div class="field">
+	    <input t:type="upload" t:id="file" t:value="file" validate="required"/>
+            </div>
+	   <div class="field">        
+	        <t:label for="marca"/>
+	        <span class="entry">    
+	            <input t:id="marca" t:type="TextField"
+				       t:validate="required" 
+				       size="16" maxlength="30" />
+	        </span>
+	   </div>
+          
+           <div class="field">        
+	        <t:label for="color"/>
+	        <span class="entry">    
+	            <input t:id="color" t:type="TextField"
+				       t:validate="required" 
+				       size="16" maxlength="255" />
+	        </span>
+	   </div>
+	   
+	   <div class="field">        
+	        <t:label for="descripcion"/>
+	        <span class="entry">    
+	            <input t:id="descripcion" t:type="TextField"
+				       t:validate="required" 
+				       size="16" maxlength="255" />
+	        </span>
+	   </div>
+	   <div class="field">    
+          Selecciona categoria <t:select  t:id="categoria" value="idCategoria" model="categoriaSelectModel"  />
+             </div> 
+           
+           <!--  
+           <div class="field"> 
+              
+               <input t:type="upload" t:id="file" t:value="file" />
+
+            </div>
+            -->
+    
+
+           <h1> AÑADIR STOCK</h1> 
+           
+              <div class="field">        
+	        <t:label for="talla"/>
+	        <span class="entry">    
+	            <input t:id="talla" t:type="TextField"
+				       t:validate="required" 
+				       size="16" maxlength="30" />
+	        </span>
+	   </div>
+           	<div class="field">        
+	        <t:label for="stock"/>
+	        <span class="entry">    
+	            <input t:id="stock" t:type="TextField"
+				       t:validate="required" 
+				       size="16" maxlength="30" />
+	        </span>
+	   </div>
+
+	    
+	
+           
+            <div class="button">
+	        <input type="submit" value="${message:submit}"/>        
+	    </div>
+	    
+	</form>
+
+  
+  <table class="RegistrarRopa">
+		
+	<tr><th>idCategoria</th><th>nombreCategoria</th><th>idCategoriaPadre</th></tr>
+		<tr t:type="Loop" t:source="listaCategoriaRopa" t:value="categoria">
+                  
+
+		    <td>
+		    	<a href="#" t:type="PageLink" t:page="categoria/modificarCategoria"
+		    		t:context="idCategoria">
+                              ${Categoria.idCategoria}
+		    	</a>
+		    </td>
+                    <td>
+                         ${Categoria.nombreCategoria}
+                      </td>
+                      <td>
+                         ${Categoria.idCategoriaPadre}
+                      </td>
+		    <!--<td><t:output value="ropa" format="format"/></td>-->
+		</tr>
+		
+  </table>
+  
+	  
+          
+
+   
+</html>

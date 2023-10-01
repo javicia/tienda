@@ -1,0 +1,59 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"
+	t:type="Layout" t:pageTitle="title" 
+	t:menuExplanation="menuExplanation">
+
+  <table class="ActualizarRopa">
+		
+				
+		<tr t:type="Loop" t:source="listaRopa" t:value="ropa">
+                  <tr><th>idRopa</th><th>nombre</th><th>precio</th><th>marca</th>
+                    <th>cor</th><th>descripcion</th><th>idCategoria</th></tr>
+
+		    <td>
+		    	<a href="#" t:type="PageLink" t:page="ropa/VerRopa"
+		    		t:context="ropa.idRopa">
+                        
+                          
+                          ${Ropa.idRopa}
+		    	</a>
+		    </td>
+                    <td>
+                         ${Ropa.nombre}
+                      </td>
+                      <td>
+                         ${Ropa.precio}
+                      </td>
+                      <td>
+                         ${Ropa.marca}
+                      </td>
+                      <td>
+                         ${Ropa.color}
+                      </td>
+                      <td>
+                         ${Ropa.descripcion}
+                      </td>
+                       <td>
+                         ${Ropa.idCategoria}
+                      </td>
+		    <!--<td><t:output value="ropa" format="format"/></td>-->
+		</tr>
+		
+  </table>
+  
+  
+  <h1>Lista Roupa </h1>
+
+        <t:grid source="listaRopa" row="ropa" add="entrar">
+          <p:nombreCell>
+          <t:pagelink page="Ropa/VerRopa" context="ropa.idRopa">${ropa.nombre}</t:pagelink>
+            </p:nombreCell>
+              <p>
+                <t:actionlink t:id="entrar" context="ropa.idRopa">Entrar</t:actionlink>
+            </p>
+           
+        </t:grid>
+                        
+
+
+  
+</html>

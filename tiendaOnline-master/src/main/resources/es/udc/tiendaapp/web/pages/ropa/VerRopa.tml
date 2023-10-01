@@ -1,0 +1,61 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"
+	t:type="Layout" t:pageTitle="title" 
+	t:menuExplanation="menuExplanation">
+  
+  
+      <body>
+        
+  <h1>Ver Ropa</h1>
+        <t:beandisplay object="ropa"/>
+
+        <form t:type="Form" t:id="anadirCarritoForm">         
+        <div class="field">    
+           Selecciona Talla <t:select  t:id="stockTalla" value="idStockTalla" model="stockTallaSelectModel"/>
+           </div>
+            
+        <div class="button">
+	        <input type="submit" value="Añadir a Carrito"/>        
+	    </div>
+        </form>
+        
+        
+         <t:grid source="listacomentarios" row="comentario" add="ropa">
+       <p:ropaCell>
+      <t:pagelink page="Ropa/VerRopaComentario" context="comentario.ropa.idRopa">${ropa.nombre}</t:pagelink>
+       </p:ropaCell>         
+     </t:grid>
+        
+        <t:grid source="listarecomendaciones" row="recomendacion">
+          
+        </t:grid>
+        
+     
+        <img src="${imageLink}"/>
+       
+       
+             <a t:type="eventlink" t:event="returnstreamresponse" href="#">Imagen</a> 
+        
+        <h2> Quieres añadir algun comentario?? </h2>
+        
+         <form t:type="Form" t:id="comentarioForm">
+   
+   <div class="field">        
+	        <t:label for="coment"/>
+	        <span class="entry">    
+	            <input t:id="coment" t:type="textArea"
+				       t:validate="required" 
+				       size="14" maxlength="244"
+                                        rows="7" cols="25"/>
+	        </span>
+	   </div>
+        
+            <div class="button">
+	        <input type="submit" value="Enviar"/>        
+	    </div>
+          
+          </form>
+        
+       </body>
+  
+    
+</html>

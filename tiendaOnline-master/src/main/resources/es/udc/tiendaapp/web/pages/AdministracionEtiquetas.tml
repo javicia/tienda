@@ -1,0 +1,27 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	t:type="Layout" t:pageTitle="title">
+
+  
+  <head>
+	<link rel="StyleSheet" href="${context:/css/styles.css}"
+		  type="text/css" media="all"/>
+</head>
+
+<body>  
+<p class="welcome">
+    ${message:admin}
+</p>
+  
+
+
+
+<span id="menuAdmin">
+
+     <a href="#" t:type="PageLink" t:page="descuento/CrearDescuento">${message:menu-crearDescuento}</a> -
+     <a href="#" t:type="PageLink" t:page="descuento/VerDescuento">${message:menu-verDescuento}</a> - -->
+     </span>
+
+</body>
+  
+
+</html>

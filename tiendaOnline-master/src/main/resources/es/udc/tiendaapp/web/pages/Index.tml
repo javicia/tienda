@@ -1,0 +1,68 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"
+	t:type="Layout" t:pageTitle="title">
+<body>
+
+<p class="welcome">
+    ${message:welcome}
+</p>
+   <h1>Lista Ropa </h1>
+     
+
+
+     
+        
+       
+          
+        
+   <table class="listaRopaIndex" style="margin: 0 auto;">
+		
+       <tr><th> Fotografia </th><th>Nombre</th><th>Descripcion</th> <th>¿Quieres comprarlo?</th></tr>
+		<tr t:type="Loop" t:source="listados" t:value="listado">
+		    <td>
+                        <img src="${listado.direccionImagen}" style="width: 125px;"/>
+		    </td>
+                    <td>
+                      <t:pagelink page="Ropa/VerRopa" context="listado.idRopa">${listado.nombre}</t:pagelink>
+                      </td>
+                      <td>
+                         ${listado.descripcion}
+                      </td>
+                     <td>
+                      <t:pagelink page="Ropa/VerRopa" context="listado.idRopa">COMPRAR</t:pagelink>
+                      </td>
+		    <!--<td><t:output value="ropa" format="format"/></td>-->
+		</tr>
+		
+  </table>
+        
+        
+        
+  		<t:if test="siHayCarrito">
+                  <h2>Carrito</h2>
+                  <t:grid source="carrito.productos" >
+                      </t:grid>
+		 
+          <h3>PRECIO TOTAL DEL CARRITO ${precioCarrito}</h3>
+             <t:pagelink page="Pedido/VerPedido" context="carrito">TRAMITAR CARRITO</t:pagelink>
+    
+      <p:else>
+        <h3>El Carrito Está vacio!!</h3> 
+            </p:else>
+            </t:if> 
+
+      
+
+
+   
+         <img src="${id6}"/>
+
+      <t:grid source="listaRopa" row="ropa">
+            <p:nombreCell>
+          <t:pagelink page="Ropa/VerRopa" context="ropa.idRopa">${ropa.nombre}</t:pagelink>
+          </p:nombreCell>
+              
+        </t:grid>
+        
+</body>   
+   
+</html>

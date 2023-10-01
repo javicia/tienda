@@ -1,0 +1,27 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"
+	t:type="Layout" t:pageTitle="title" 
+	t:menuExplanation="menuExplanation">
+  
+  
+  <body>
+    
+    <h1>
+      Seleccionaste el pedido con   ${pedido.idPedido} 
+    </h1>
+    
+
+    <t:grid source="listaproductospedido" row="lineaPedido" >
+      
+              </t:grid>
+
+      
+  
+  <form  t:type="Form" t:id="comprobarStockForm">
+	<div class="button">
+		<input type="submit" value="Comprobar Stock" />
+	</div>
+  </form>
+
+  
+  </body>
+</html>

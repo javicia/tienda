@@ -1,0 +1,46 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	t:type="Layout" t:pageTitle="title" 
+	t:menuExplanation="menuExplanation">
+  
+      <body>
+        
+  <h1>Ver Categoria</h1>
+
+<form t:type="Form" t:id="actualizarCategoriaForm">
+	   <t:errors/>
+
+              <div class="field">        
+	        <t:label for="idCategoria2"/>
+	        <span class="entry">    
+	            <input t:id="idCategoria2" t:type="TextField"
+				       t:validate="required" 
+				       size="16" maxlength="30" />
+	        </span>
+	   </div>
+	   <div class="field">        
+	        <t:label for="nombreCategoria"/>
+	        <span class="entry">    
+	            <input t:id="nombreCategoria" t:type="TextField"
+				       t:validate="required" 
+				       size="16" maxlength="30" />
+	        </span>
+	   </div>
+	   
+	   <div class="field">        
+	        <t:label for="idCategoriaPadre"/>
+	        <span class="entry">    
+	            <input t:id="idCategoriaPadre" t:type="TextField"
+				       t:validate="required" 
+				       size="16" maxlength="30" />
+	        </span>
+	   </div>
+	   
+	  
+	    <div class="button">
+	        <input type="submit" value="${message:submit}"/>        
+	    </div>
+	    
+	</form>
+    </body>
+  
+</html>

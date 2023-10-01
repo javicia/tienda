@@ -1,0 +1,17 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	t:type="Layout" t:pageTitle="title" 
+	t:menuExplanation="menuExplanation">
+  
+      <body>
+        
+  <h1>Ver Descuentos posibles</h1>
+        <t:grid source="listaDescuento" row="descuento" >
+          
+           
+        </t:grid>
+      <t:form>      
+        <t:select t:id="descuento" value="idDescuento" model="descuentoSelectModel"  />
+    </t:form>
+    </body>
+  
+</html>

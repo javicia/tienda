@@ -1,0 +1,17 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"
+	t:type="Layout" t:pageTitle="title" 
+	t:menuExplanation="menuExplanation">
+  <body>
+ <h1>Lista Roupa </h1>
+
+      <t:grid source="listaRopa" row="ropa" add="modificar">
+          <p:nombreCell>
+          <t:pagelink page="Ropa/VerRopaComentario" context="ropa.idRopa">${ropa.nombre}</t:pagelink>
+            </p:nombreCell>
+              <p:modificarCell>
+                <t:pagelink page="Ropa/ModificarRopa" context="ropa.idRopa">Modificar</t:pagelink>
+            </p:modificarCell>
+           
+        </t:grid>
+</body>
+</html>

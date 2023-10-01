@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter" t:type="Layout" t:pageTitle="title" 
+	t:menuExplanation="menuExplanation">
+    
+
+
+	
+  
+  <body>
+    
+    <h3>PASO 1 DE 5 ... Este es el pedido que tienes actualmente, deseas tramitarlo...?</h3>
+    
+     <t:if test="Hay">
+       
+     <t:grid source="Productos" >         
+     
+     </t:grid>
+       <p:else>
+       <h3>El Carrito Está vacio!!</h3> 
+       </p:else>
+      </t:if>
+  
+  <form  t:type="Form" t:id="borrarCarritoForm">
+	<div class="button">
+		<input type="submit" value="Borrar Carrito" />
+	</div>
+  </form>
+  
+  
+  <form  t:type="Form" t:id="tramitarPedidoForm">
+	<div class="button">
+		<input type="submit" value="Tramitar Pedido" />
+	</div>
+  </form>
+  
+    <div class="eg">
+        <form t:type="form" t:id="myForm">
+        
+            Que quieres hacer con los puntos? &nbsp;&nbsp;
+            
+            <!-- We use a String, not a Boolean, in the radio group value so that we can represent null. If a Boolean is set to null 
+                then Tapestry coerces it to FALSE. See https://issues.apache.org/jira/browse/TAPESTRY-1928 . -->
+                
+            <t:RadioGroup t:id="valueForMyBoolean">
+                <t:Radio t:id="radioT" value="literal:T" label="Acumular" onclick="this.form.submit()"/>
+                <t:label for="radioT"/>&nbsp;&nbsp;
+                <t:Radio t:id="radioF" value="literal:F" label="Descontar" onclick="this.form.submit()"/>
+                <t:label for="radioF"/>&nbsp;&nbsp;
+            </t:RadioGroup>
+            
+        </form>
+   
+          <t:if test="myBoolean">
+                        VAS A  DESCONTAR PUNTOS, EL DESCUENTO ES DE: 
+        </t:if>
+        <t:if test="!myBoolean">
+            VAS A ACUMULAR.... TANTOS PUNTOS.
+        </t:if>
+
+ </div>
+  </body>
+</html>
