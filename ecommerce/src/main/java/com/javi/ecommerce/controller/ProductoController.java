@@ -54,4 +54,11 @@ public class ProductoController {
 		LOGGER.info("Producto buscado:{}", producto);
 		model.addAttribute("producto", producto);
 		return"productos/edit";	}
+	
+	@PostMapping("/update")
+	public String update(Producto producto) {
+		productoService.update(producto);
+		return "redirect:/productos";
+		
+	}
 }
