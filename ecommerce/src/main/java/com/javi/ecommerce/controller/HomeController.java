@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.javi.ecommerce.model.DetalleOrden;
 import com.javi.ecommerce.model.Orden;
 import com.javi.ecommerce.model.Producto;
+import com.javi.ecommerce.model.Usuario;
+import com.javi.ecommerce.service.IUsuarioService;
 import com.javi.ecommerce.service.ProductoService;
 
 
@@ -30,6 +32,9 @@ public class HomeController {
 
 	@Autowired
 	private ProductoService productoService;
+	
+	@Autowired
+	private IUsuarioService usuarioService;
 	
 	//Almacenamos los detalles de la orden
 	List<DetalleOrden> detalles= new ArrayList<DetalleOrden>();
@@ -53,36 +58,38 @@ public class HomeController {
 		return "usuario/productoHome";
 	}
 	
-	//Agregar producto a carrito
 	@PostMapping("/cart")
-	public String addCard(@RequestParam Integer id, @RequestParam Integer cantidad, Model model) {
-		DetalleOrden detalleOrden= new DetalleOrden();
+	public String addCart(@RequestParam Integer id, @RequestParam Integer cantidad, Model model) {
+		DetalleOrden detalleOrden = new DetalleOrden();
 		Producto producto = new Producto();
 		double sumaTotal = 0;
-		
+
 		Optional<Producto> optionalProducto = productoService.get(id);
 		log.info("Producto añadido: {}", optionalProducto.get());
 		log.info("Cantidad: {}", cantidad);
 		producto = optionalProducto.get();
-		
+
 		detalleOrden.setCantidad(cantidad);
 		detalleOrden.setPrecio(producto.getPrecio());
 		detalleOrden.setNombre(producto.getNombre());
-		detalleOrden.setTotal(producto.getPrecio()* cantidad);
+		detalleOrden.setTotal(producto.getPrecio() * cantidad);
 		detalleOrden.setProducto(producto);
 		
-		//añadir detalles a la lista
-		detalles.add(detalleOrden);
+		//validar que le producto no se añada 2 veces
+		Integer idProducto=producto.getId();
+		boolean ingresado=detalles.stream().anyMatch(p -> p.getProducto().getId()==idProducto);
 		
-		//sumamos todos los productos que están en el carrito
-		sumaTotal=detalles.stream().mapToDouble(dt -> dt.getTotal()).sum();
+		if (!ingresado) {
+			detalles.add(detalleOrden);
+		}
+		
+		sumaTotal = detalles.stream().mapToDouble(dt -> dt.getTotal()).sum();
+
 		orden.setTotal(sumaTotal);
-		
-		//mostrar en las vistas
 		model.addAttribute("cart", detalles);
 		model.addAttribute("orden", orden);
-		
-		return"usuario/carrito";
+
+		return "usuario/carrito";
 	}
 	
 	//Quitar producto de carrito
@@ -113,4 +120,26 @@ public class HomeController {
 	}
 	
 	
+	@GetMapping("/getCart")
+	public String getCart(Model model) {
+		
+		//mostrar en las vistas
+		model.addAttribute("cart", detalles);
+		model.addAttribute("orden", orden);
+		
+		return"/usuario/carrito";
+	}
+	
+	@GetMapping("/order")
+	public String order(Model model) {
+		
+	
+		Usuario usuario = usuarioService.findById(1).get();
+		//mostrar en las vistas
+				model.addAttribute("cart", detalles);
+				model.addAttribute("orden", orden);
+				model.addAttribute("usuario", usuario);
+		
+		return"usuario/resumenorden";
+	}
 }
