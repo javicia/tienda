@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.javi.ecommerce.model.DetalleOrden;
 
 @Repository
-public interface IDetalleOreden extends JpaRepository<DetalleOrden, Integer>{
+public interface IDetalleOrdenRepository extends JpaRepository<DetalleOrden, Integer>{
 
 }
