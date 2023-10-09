@@ -1,8 +1,8 @@
 package com.javi.ecommerce.controller;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -184,16 +184,26 @@ public class HomeController {
 	public String searchProducto(@RequestParam String nombre, Model model) {
 		log.info("Nombre del producto: {}", nombre);
 		
+		// Normaliza el texto de búsqueda para considerar mayúsculas, minúsculas y acentos
+	    String normalizedNombre = Normalizer.normalize(nombre, Normalizer.Form.NFD)
+	            .replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
+	            .toLowerCase();
+	    
 		//Obtiene los productos en una lista, hace un stream, un filter(función lamda), le pasamos el predicado(nombre)
-		//Con una función anónima -> traemos el nombnre del producto, le pasamos la secuencioa de caractéres
+		//Con una función anónima -> Utilizamos replaceAll para eliminar los caracteres diacríticos (acentos) del texto normalizado.
+	    //
 		//y nos lo devuelve en una lista(collect)
-		List<Producto> productos = productoService
-				.findAll()
-				.stream()
-				.filter(p -> p.getNombre()
-				.contains(nombre))
-				.collect(Collectors.toList());
-		
+	    List<Producto> productos = productoService
+	            .findAll()
+	            .stream()
+	            .filter(p -> {
+	                String normalizedProductName = Normalizer.normalize(p.getNombre(), Normalizer.Form.NFD)
+	                        .replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
+	                        .toLowerCase();
+	                return normalizedProductName.contains(normalizedNombre);
+	            })
+	            .collect(Collectors.toList());
+
 		//Enviamos hacia la vista +
 	model.addAttribute("productos", productos);
 	
