@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -176,5 +177,26 @@ public class HomeController {
 		detalles.clear();
 		
 		return"redirect:/";
+	}
+	
+	//Búsqueda
+	@PostMapping("/search")
+	public String searchProducto(@RequestParam String nombre, Model model) {
+		log.info("Nombre del producto: {}", nombre);
+		
+		//Obtiene los productos en una lista, hace un stream, un filter(función lamda), le pasamos el predicado(nombre)
+		//Con una función anónima -> traemos el nombnre del producto, le pasamos la secuencioa de caractéres
+		//y nos lo devuelve en una lista(collect)
+		List<Producto> productos = productoService
+				.findAll()
+				.stream()
+				.filter(p -> p.getNombre()
+				.contains(nombre))
+				.collect(Collectors.toList());
+		
+		//Enviamos hacia la vista +
+	model.addAttribute("productos", productos);
+	
+		return"usuario/home";
 	}
 }
