@@ -89,7 +89,7 @@ public class ProductoController {
 		if(file.isEmpty()) { // cuando editamos u n producto pero no cambiamos de imagen
 			producto.setImagen(p.getImagen());
 		}else {// cuando se edita también la imagen
-			//eliminar cuandpo la imagen no sea la imagen por defecto
+			//eliminar cuando la imagen no sea la imagen por defecto
 			if(!p.getImagen().equals("default.jgp")) {
 				upload.deleteImage(p.getImagen());
 			}
