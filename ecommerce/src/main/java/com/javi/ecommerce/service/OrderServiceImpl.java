@@ -7,24 +7,24 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.javi.ecommerce.model.Orden;
-import com.javi.ecommerce.model.Usuario;
-import com.javi.ecommerce.repository.IOrdenRepository;
+import com.javi.ecommerce.model.Order;
+import com.javi.ecommerce.model.User;
+import com.javi.ecommerce.repository.IOrderRepository;
 
 @Service
-public class OrdenServiceImpl implements IOrdenService{
+public class OrderServiceImpl implements IOrderService{
 
 	@Autowired
-	private IOrdenRepository ordenRepository;
+	private IOrderRepository ordenRepository;
 	
 	@Override
-	public Orden save(Orden orden) {
+	public Order save(Order orden) {
 		// TODO Auto-generated method stub
 		return ordenRepository.save(orden);
 	}
 
 	@Override
-	public List<Orden> findAll() {
+	public List<Order> findAll() {
 		// TODO Auto-generated method stub
 		return ordenRepository.findAll();
 	}
@@ -33,7 +33,7 @@ public class OrdenServiceImpl implements IOrdenService{
 	public String generarNumeroOrden() {
 		int numero = 0;
 		String numeroConcatenado="";
-		List<Orden> ordenes= findAll();
+		List<Order> ordenes= findAll();
 		List<Integer> numeros = new ArrayList<Integer>();
 		ordenes.stream().forEach(o -> numeros.add(Integer.parseInt(o.getNumero())));
 		if(ordenes.isEmpty()) {
@@ -55,13 +55,13 @@ public class OrdenServiceImpl implements IOrdenService{
 	}
 
 	@Override
-	public List<Orden> findByUsuario(Usuario usuario) {
+	public List<Order> findByUsuario(User usuario) {
 	
 		return ordenRepository.findByUsuario(usuario);
 	}
 
 	@Override
-	public Optional<Orden> findById(Integer id) {
+	public Optional<Order> findById(Integer id) {
 		// TODO Auto-generated method stub
 		return ordenRepository.findById(id);
 	}

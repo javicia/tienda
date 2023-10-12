@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.javi.ecommerce.model.DetalleOrden;
-import com.javi.ecommerce.model.Orden;
-import com.javi.ecommerce.model.Producto;
-import com.javi.ecommerce.model.Usuario;
-import com.javi.ecommerce.service.IDetalleOrdenService;
-import com.javi.ecommerce.service.IOrdenService;
-import com.javi.ecommerce.service.IUsuarioService;
-import com.javi.ecommerce.service.ProductoService;
+import com.javi.ecommerce.model.OrderDetail;
+import com.javi.ecommerce.model.Order;
+import com.javi.ecommerce.model.Product;
+import com.javi.ecommerce.model.User;
+import com.javi.ecommerce.service.IOrderDetailService;
+import com.javi.ecommerce.service.IOrderService;
+import com.javi.ecommerce.service.IUserService;
+import com.javi.ecommerce.service.ProductService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -38,22 +38,22 @@ public class HomeController {
 	private final Logger log= LoggerFactory.getLogger(HomeController.class);
 
 	@Autowired
-	private ProductoService productoService;
+	private ProductService productoService;
 	
 	@Autowired
-	private IUsuarioService usuarioService;
+	private IUserService usuarioService;
 	
 	@Autowired
-	private IOrdenService ordenService;
+	private IOrderService ordenService;
 	
 	@Autowired
-	private IDetalleOrdenService detalleOrdenService;
+	private IOrderDetailService detalleOrdenService;
 	
 	//Almacenamos los detalles de la orden
-	List<DetalleOrden> detalles= new ArrayList<DetalleOrden>();
+	List<OrderDetail> detalles= new ArrayList<OrderDetail>();
 	
 	//Almacena los datos de la orden
-	Orden orden = new Orden();
+	Order orden = new Order();
 	
 	@GetMapping("")
 	public String home(Model model, HttpSession session) {
@@ -68,8 +68,8 @@ public class HomeController {
 	@GetMapping("productohome/{id}")
 	public String productoHome(@PathVariable Integer id, Model model) {
 		log.info("Id producto enviado como parámetro {}", id);
-		Producto producto = new Producto();
-		Optional<Producto> productoOptional = productoService.get(id);
+		Product producto = new Product();
+		Optional<Product> productoOptional = productoService.get(id);
 		producto = productoOptional.get();
 		
 		model.addAttribute("producto", producto);
@@ -78,11 +78,11 @@ public class HomeController {
 	
 	@PostMapping("/cart")
 	public String addCart(@RequestParam Integer id, @RequestParam Integer cantidad, Model model) {
-		DetalleOrden detalleOrden = new DetalleOrden();
-		Producto producto = new Producto();
+		OrderDetail detalleOrden = new OrderDetail();
+		Product producto = new Product();
 		double sumaTotal = 0;
 
-		Optional<Producto> optionalProducto = productoService.get(id);
+		Optional<Product> optionalProducto = productoService.get(id);
 		log.info("Producto añadido: {}", optionalProducto.get());
 		log.info("Cantidad: {}", cantidad);
 		producto = optionalProducto.get();
@@ -114,9 +114,9 @@ public class HomeController {
 	@GetMapping("/delete/cart/{id}")
 	public String deleteProductoCart(@PathVariable Integer id, Model model) {
 		//lista nueva de productos
-		List<DetalleOrden> ordenesNueva = new ArrayList<DetalleOrden>();
+		List<OrderDetail> ordenesNueva = new ArrayList<OrderDetail>();
 		//quitar productos
-		for(DetalleOrden detalleOrden: detalles) {
+		for(OrderDetail detalleOrden: detalles) {
 			if(detalleOrden.getProducto().getId()!= id) {
 				ordenesNueva.add(detalleOrden);
 			}
@@ -154,7 +154,7 @@ public class HomeController {
 	public String order(Model model, HttpSession session) {
 		
 	
-	Usuario usuario = usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+	User usuario = usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
 		//mostrar en las vistas
 				model.addAttribute("cart", detalles);
 				model.addAttribute("orden", orden);
@@ -171,18 +171,18 @@ public class HomeController {
 		orden.setNumero(ordenService.generarNumeroOrden());
 		
 		//usuario
-		Usuario usuario = usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+		User usuario = usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
 		orden.setUsuario(usuario);
 		ordenService.save(orden);
 		
 		//guardar detalles
-		for(DetalleOrden dt:detalles) {
+		for(OrderDetail dt:detalles) {
 			dt.setOrden(orden);
 			detalleOrdenService.save(dt);
 		}
 		
 		//limpiar lista IOrden
-		orden= new Orden();
+		orden= new Order();
 		detalles.clear();
 		
 		return"redirect:/";
@@ -202,7 +202,7 @@ public class HomeController {
 		//Con una función anónima -> Utilizamos replaceAll para eliminar los caracteres diacríticos (acentos) del texto normalizado.
 	    //
 		//y nos lo devuelve en una lista(collect)
-	    List<Producto> productos = productoService
+	    List<Product> productos = productoService
 	            .findAll()
 	            .stream()
 	            .filter(p -> {

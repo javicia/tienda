@@ -17,7 +17,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.javi.ecommerce.model.Usuario;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -28,7 +27,7 @@ public class UserDetailServiceImpl implements UserDetailsService{
 	
 	@Autowired
 	@Lazy
-	private IUsuarioService usuarioService;
+	private IUserService usuarioService;
 	
 	@Autowired
 	@Lazy
@@ -42,11 +41,11 @@ public class UserDetailServiceImpl implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		log.info("Este es el username");
-		Optional<Usuario> optionalUser=usuarioService.findByEmail(username);
+		Optional<com.javi.ecommerce.model.User> optionalUser=usuarioService.findByEmail(username);
 		if (optionalUser.isPresent()) {
 			log.info("Esto es el id del usuario: {}", optionalUser.get().getId());
 			session.setAttribute("idusuario", optionalUser.get().getId());
-			Usuario usuario= optionalUser.get();
+			com.javi.ecommerce.model.User usuario= optionalUser.get();
 			return User.builder().username(usuario.getNombre()).password(usuario.getPassword()).roles(usuario.getTipo()).build();
 		}else {
 			throw new UsernameNotFoundException("Usuario no encontrado");			

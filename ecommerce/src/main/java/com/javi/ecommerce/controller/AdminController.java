@@ -13,32 +13,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.javi.ecommerce.model.Orden;
-import com.javi.ecommerce.model.Producto;
-import com.javi.ecommerce.service.IOrdenService;
-import com.javi.ecommerce.service.IUsuarioService;
-import com.javi.ecommerce.service.ProductoService;
+import com.javi.ecommerce.model.Order;
+import com.javi.ecommerce.model.Product;
+import com.javi.ecommerce.service.IOrderService;
+import com.javi.ecommerce.service.IUserService;
+import com.javi.ecommerce.service.ProductService;
 
 
 
 @Controller
 @RequestMapping("/administrador")
-public class AdministradorController {
+public class AdminController {
 
 	@Autowired
-	private ProductoService productoService;
+	private ProductService productoService;
 	
 	@Autowired
-	private IUsuarioService usuarioService;
+	private IUserService usuarioService;
 	
 	@Autowired
-	private IOrdenService ordenService;
+	private IOrderService ordenService;
 	
-	private Logger logg= LoggerFactory.getLogger(AdministradorController.class);
+	private Logger logg= LoggerFactory.getLogger(AdminController.class);
 	
 	@GetMapping("")
 	public String home(Model model) { 
-		List<Producto> productos = productoService.findAll();
+		List<Product> productos = productoService.findAll();
 		model.addAttribute("productos", productos);
 		return"administrador/home";	}
 	
@@ -61,7 +61,7 @@ public String ordenes(Model model) {
 @GetMapping("/detalle/{id}")
 public String detalle(Model model, @PathVariable Integer id) {
 	logg.info("Id de la orden: {}", id);
-	Orden orden = ordenService.findById(id).get();
+	Order orden = ordenService.findById(id).get();
 	
 	model.addAttribute("detalles", orden.getDetalle());
 	

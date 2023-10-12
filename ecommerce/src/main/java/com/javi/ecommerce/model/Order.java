@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 @SuppressWarnings("unused")
 @Entity
 @Table(name = "ordenes")
-public class Orden {
+public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -27,16 +27,16 @@ public class Orden {
 	private double total;
 	
 	@ManyToOne
-	private Usuario usuario;
+	private User usuario;
 	
 	@OneToMany(mappedBy = "orden")
-	private List<DetalleOrden> detalle;
+	private List<OrderDetail> detalle;
 	
-	public Orden() {
+	public Order() {
 	
 	}
 
-	public Orden(Integer id, String numero, Date fechaCreacion, Date fechaRecibida, double total) {
+	public Order(Integer id, String numero, Date fechaCreacion, Date fechaRecibida, double total) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -86,20 +86,20 @@ public class Orden {
 	}
 	
 
-	public Usuario getUsuario() {
+	public User getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(User usuario) {
 		this.usuario = usuario;
 	}
 	
 
-	public List<DetalleOrden> getDetalle() {
+	public List<OrderDetail> getDetalle() {
 		return detalle;
 	}
 
-	public void setDetalle(List<DetalleOrden> detalle) {
+	public void setDetalle(List<OrderDetail> detalle) {
 		this.detalle = detalle;
 	}
 

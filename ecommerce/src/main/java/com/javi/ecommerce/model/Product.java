@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "productos")
-public class Producto {
+public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -20,15 +20,15 @@ public class Producto {
 	private int cantidad;
 	
 	@ManyToOne
-	private Usuario usuario;
+	private User usuario;
 	
-	public Producto() {
+	public Product() {
 
 	}
 
 	
-	public Producto(Integer id, String nombre, String descripcion, String imagen, double precio, int cantidad,
-			Usuario usuario) {
+	public Product(Integer id, String nombre, String descripcion, String imagen, double precio, int cantidad,
+			User usuario) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -91,11 +91,11 @@ public class Producto {
 	
 	
 
-	public Usuario getUsuario() {
+	public User getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(User usuario) {
 		this.usuario = usuario;
 	}
 

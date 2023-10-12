@@ -6,29 +6,29 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.javi.ecommerce.model.Producto;
-import com.javi.ecommerce.repository.IProductoRepository;
+import com.javi.ecommerce.model.Product;
+import com.javi.ecommerce.repository.IProductRepository;
 
 
 @Service
-public class ProductoServiceImpl implements ProductoService{
+public class ProductServiceImpl implements ProductService{
 	
 	@Autowired
-	private IProductoRepository productoRepository;
+	private IProductRepository productoRepository;
 
 	@Override
-	public Producto save(Producto producto) {
+	public Product save(Product producto) {
 		// TODO Auto-generated method stub
 		return productoRepository.save(producto);
 	}
 
 	@Override
-	public Optional<Producto> get(Integer id) {
+	public Optional<Product> get(Integer id) {
 		return productoRepository.findById(id);
 	}
 
 	@Override
-	public void update(Producto producto) {
+	public void update(Product producto) {
 		productoRepository.save(producto);
 		
 	}
@@ -39,7 +39,7 @@ public class ProductoServiceImpl implements ProductoService{
 	}
 
 	@Override
-	public List<Producto> findAll() {
+	public List<Product> findAll() {
 		return productoRepository.findAll();
 	}
 

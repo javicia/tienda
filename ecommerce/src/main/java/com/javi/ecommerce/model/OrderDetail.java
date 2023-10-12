@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 @SuppressWarnings("unused")
 @Entity
 @Table(name = "detalles")
-public class DetalleOrden {
+public class OrderDetail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -21,15 +21,15 @@ public class DetalleOrden {
 	private double total;
 	
 	@ManyToOne
-	private Orden orden;
+	private Order orden;
 	
 	@ManyToOne
-	private Producto producto;
+	private Product producto;
 	
-	public DetalleOrden() {
+	public OrderDetail() {
 	
 	}
-	public DetalleOrden(Integer id, String nombre, double cantidad, double precio, double total) {
+	public OrderDetail(Integer id, String nombre, double cantidad, double precio, double total) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -69,16 +69,16 @@ public class DetalleOrden {
 	}
 	
 	
-	public Orden getOrden() {
+	public Order getOrden() {
 		return orden;
 	}
-	public void setOrden(Orden orden) {
+	public void setOrden(Order orden) {
 		this.orden = orden;
 	}
-	public Producto getProducto() {
+	public Product getProducto() {
 		return producto;
 	}
-	public void setProducto(Producto producto) {
+	public void setProducto(Product producto) {
 		this.producto = producto;
 	}
 	@Override

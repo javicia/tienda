@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.javi.ecommerce.model.Producto;
-import com.javi.ecommerce.model.Usuario;
-import com.javi.ecommerce.service.IUsuarioService;
-import com.javi.ecommerce.service.ProductoService;
+import com.javi.ecommerce.model.Product;
+import com.javi.ecommerce.model.User;
+import com.javi.ecommerce.service.IUserService;
+import com.javi.ecommerce.service.ProductService;
 import com.javi.ecommerce.service.UploadFileService;
 
 import jakarta.servlet.http.HttpSession;
@@ -26,17 +26,17 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/productos")
-public class ProductoController { 
+public class ProductController { 
 
 	
 	
-	private final Logger LOGGER = LoggerFactory.getLogger(ProductoController.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
 	
 	@Autowired
-	private ProductoService productoService;
+	private ProductService productoService;
 	
 	@Autowired
-	private IUsuarioService usuarioService;
+	private IUserService usuarioService;
 	
 	@Autowired
 	private UploadFileService upload;
@@ -51,9 +51,9 @@ public class ProductoController {
 		return"productos/create";	}
 	
 	@PostMapping("/save")
-	public String save(Producto producto, @RequestParam("img") MultipartFile file, HttpSession session) throws IOException {
+	public String save(Product producto, @RequestParam("img") MultipartFile file, HttpSession session) throws IOException {
 		LOGGER.info("Este es el objeto producto {}", producto);
-		Usuario u = usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+		User u = usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
 		producto.setUsuario(u);
 		
 		//imagen
@@ -70,8 +70,8 @@ public class ProductoController {
 	
 	@GetMapping("/edit/{id}")
 	public String edit(@PathVariable Integer id, Model model) {
-		Producto producto= new Producto();
-		Optional <Producto> optionalProducto= productoService.get(id); 
+		Product producto= new Product();
+		Optional <Product> optionalProducto= productoService.get(id); 
 		producto = optionalProducto.get();
 		
 		LOGGER.info("Producto buscado:{}", producto);
@@ -81,8 +81,8 @@ public class ProductoController {
 	
 	
 	@PostMapping("/update")
-	public String update(Producto producto, @RequestParam("img") MultipartFile file) throws IOException {
-		Producto p = new Producto();
+	public String update(Product producto, @RequestParam("img") MultipartFile file) throws IOException {
+		Product p = new Product();
 		p= productoService.get(producto.getId()).get();
 		
 		//actualizar imagen
@@ -107,7 +107,7 @@ public class ProductoController {
 	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable Integer id) {
 		//eliminar imagen
-		Producto p = new Producto();
+		Product p = new Product();
 		p=productoService.get(id).get();
 		
 		//eliminar cuandpo la imagen no sea la imagen por defecto

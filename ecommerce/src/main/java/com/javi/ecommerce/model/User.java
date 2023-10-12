@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuario {
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -24,15 +24,15 @@ public class Usuario {
 	private String password;
 	
 	@OneToMany(mappedBy = "usuario")
-	private List<Producto> productos;
+	private List<Product> productos;
 	
 	@OneToMany(mappedBy = "usuario")
-	private List<Orden> ordenes;
+	private List<Order> ordenes;
 	
-	public Usuario() {
+	public User() {
 	}
 	
-	public Usuario(Integer id, String nombre, String username, String email, String direccion, String telefono,
+	public User(Integer id, String nombre, String username, String email, String direccion, String telefono,
 			String tipo, String password) {
 		super();
 		this.id = id;
@@ -93,11 +93,11 @@ public class Usuario {
 		this.password = password;
 	}
 	
-	public List<Producto> getProductos() {
+	public List<Product> getProductos() {
 		return productos;
 	}
 
-	public void setProductos(List<Producto> productos) {
+	public void setProductos(List<Product> productos) {
 		this.productos = productos;
 	}
 
